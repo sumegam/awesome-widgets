@@ -3,6 +3,7 @@ local watch = require("awful.widget.watch")
 local wibox = require("wibox")
 
 local ram_widget = {}
+local min_swap = 100 * 1024
 
 function round(number)
     return math.floor(10 * number / 1024^2 + 0.5) / 10
@@ -20,10 +21,10 @@ local function worker(args)
     	function(widget, stdout, stderr, exitreason, exitcode)
 	    total, used, free, shared, buff_cache, available, swap_total, swap_used, swap_free =
 	    	stdout:match('(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*(%d+)%s*Swap:%s*(%d+)%s*(%d+)%s*(%d+)')
-	    if tonumber(swap_used) > 0 then
-		widget.text = string.format(" RAM: %.1f/%.1f GiB SWAP: %.1f/%.1f GiB ", round(used), round(total), round(swap_used), round(swap_total))
+	    if tonumber(swap_used) > min_swap then
+		widget.text = string.format(" %.1f GiB %.1f GiB ", round(used), round(swap_used))
 	    else
-		widget.text = string.format(" RAM: %.1f/%.1f GiB ", round(used), round(total))
+		widget.text = string.format(" %.1f GiB ", round(used))
 	    end
 	end,
 	ram_widget
