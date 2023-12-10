@@ -1,13 +1,9 @@
 local wibox = require("wibox")
 local watch = require("awful.widget.watch")
 local spawn = require("awful.spawn")
-local naughty = require("naughty")
-local gfs = require("gears.filesystem")
-local dpi = require('beautiful').xresources.apply_dpi
 
 local PATH_TO_ICONS = "/usr/share/icons/Adwaita/symbolic/status/"
 local volume_icon_name="audio-volume-medium-symbolic"
-
 
 function get_volume_from_output(output)
     local volume = string.match(string.match(output, "Playback %d+ %[%d+%%]"), "%[%d+%%]")
