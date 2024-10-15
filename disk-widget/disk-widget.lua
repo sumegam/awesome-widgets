@@ -105,7 +105,7 @@ local function worker(args)
           elseif j == 3 then
             avail = round_to_gib(w:sub(1, -2))
           elseif j == 5 then
-            mount = w
+            mount = w:gsub("[\n\r]", "")
           end
           j = j + 1
         end
